@@ -56,20 +56,6 @@
       background-color: white;
       box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
     }
-    .popup {
-      margin-top: 10px;
-      padding: 10px;
-      font-size: 16px;
-      color: white;
-      background-color: #25d9b7;
-      border-radius: 5px;
-      display: none;
-    }
-    .slider-labels {
-      display: flex;
-      justify-content: space-between;
-      font-size: 14px;
-    }
     footer {
       margin-top: 40px;
       font-size: 14px;
@@ -117,12 +103,6 @@
   <p style="font-weight: bold; font-size: 1.2em;">How do you feel about Musk?</p>
   <div class="slider-container">
     <input type="range" id="slider" min="1" max="10" value="5" step="1">
-    <div class="slider-labels">
-      <span>Saint Elon</span>
-      <span>Benevolent Disruptor</span>
-      <span>Flawed Genius</span>
-      <span>Literal Antichrist</span>
-    </div>
     <div id="description" class="result">Move the slider to see your choice!</div>
     <button id="submit-btn">Submit</button>
     <div id="popup" class="popup">Thank you for voting! 🎉</div>
@@ -142,7 +122,6 @@
   <script>
     const BIN_URL = "https://api.jsonbin.io/v3/b/674a14d0e41b4d34e45cffac";
     const API_KEY = "$2a$10$DGnpCL1IkSfhm4ZP6vbAJePMjj7YP2wzKhrPpW9.xfh/PmrlsiHX6";
-
 
     const slider = document.getElementById("slider");
     const description = document.getElementById("description");
@@ -215,3 +194,36 @@
           popup.style.display = "none";
         }, 3000);
       } catch (error) {
+        console.error("Error updating data:", error);
+      }
+    }
+
+    function shareResult(platform) {
+      const url = encodeURIComponent("https://beyondsurvival.github.io/musk-o-metre/");
+      const selectedValue = slider.value;
+      const result = choices[selectedValue - 1];
+      const text = encodeURIComponent(`I got "${result}". Find out where you stand on the Musk-o-Metre!`);
+
+      let shareUrl = "";
+      if (platform === "twitter") {
+        shareUrl = `https://twitter.com/intent/tweet?text=${text}&url=${url}`;
+      } else if (platform === "facebook") {
+        shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${url}`;
+      } else if (platform === "linkedin") {
+        shareUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${url}`;
+      }
+
+      if (shareUrl) {
+        window.open(shareUrl, "_blank");
+      }
+    }
+
+    document.getElementById("submit-btn").addEventListener("click", () => {
+      const vote = parseInt(slider.value, 10);
+      updateData(vote);
+    });
+
+    fetchData();
+  </script>
+</body>
+</html>
