@@ -1,0 +1,119 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Musk-o-Metre™</title>
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      margin: 0;
+      padding: 0;
+      text-align: center;
+      background-color: #f0f0f0;
+    }
+    h1 {
+      margin: 20px 0;
+    }
+    .slider-container {
+      margin: 30px auto;
+      width: 90%;
+      max-width: 600px;
+    }
+    #slider {
+      width: 100%;
+      margin: 20px 0;
+    }
+    .result {
+      margin-top: 20px;
+      font-size: 18px;
+      color: #333;
+      padding: 10px;
+      border-radius: 5px;
+      background-color: white;
+      box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    }
+    .result.hidden {
+      display: none;
+    }
+    footer {
+      margin-top: 40px;
+      font-size: 14px;
+      color: #666;
+    }
+    .icon {
+      margin-top: 10px;
+      font-size: 50px;
+    }
+    /* Gradient styling for the slider */
+    #slider {
+      -webkit-appearance: none;
+      appearance: none;
+      height: 15px;
+      background: linear-gradient(to right, white, #25d9b7, #ac05f2, black);
+      border-radius: 10px;
+      outline: none;
+      opacity: 0.9;
+      transition: opacity 0.2s;
+    }
+    #slider::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 25px;
+      height: 25px;
+      background: #333;
+      cursor: pointer;
+      border-radius: 50%;
+    }
+    #slider::-moz-range-thumb {
+      width: 25px;
+      height: 25px;
+      background: #333;
+      cursor: pointer;
+      border-radius: 50%;
+    }
+  </style>
+</head>
+<body>
+  <h1>The Musk-o-Metre™</h1>
+  <p>Where do you stand on the spectrum of Musk perception?</p>
+  <div class="slider-container">
+    <input type="range" id="slider" min="1" max="10" value="5" step="1">
+    <div class="result hidden" id="result">
+      <div id="icon" class="icon">🤔</div>
+      <p id="description"></p>
+    </div>
+  </div>
+  <footer>
+    Made with 🚀 by Musk Observers
+  </footer>
+  <script>
+    const slider = document.getElementById('slider');
+    const result = document.getElementById('result');
+    const description = document.getElementById('description');
+    const icon = document.getElementById('icon');
+
+    const data = [
+      { icon: '😇', text: "Saint Elon, Savior of Humanity: “Musk is a visionary genius! He’s saving the planet with Tesla, taking us to Mars with SpaceX, and ensuring free speech with X. Anyone who doubts him just doesn’t understand progress.”" },
+      { icon: '🚀', text: "Benevolent Disruptor: “Sure, he’s controversial, but that’s the price of innovation. If humanity’s going to solve big problems, we need bold leaders like Musk pushing boundaries.”" },
+      { icon: '🧠', text: "Flawed Genius: “He’s brilliant but messy. His companies are revolutionary, but his leadership style is chaotic, and his public antics are… let’s say unhelpful.”" },
+      { icon: '⚖️', text: "Chaotic Neutral Tech Lord: “He’s neither a hero nor a villain—just a guy with too much power and too little accountability. The tech is impressive, but the man? Meh.”" },
+      { icon: '💣', text: "Accidental Supervillain: “He doesn’t mean to be a threat, but consolidating this much power in one person is dangerous. His vision might be great, but what happens when it goes wrong?”" },
+      { icon: '🏰', text: "Corporate Colonizer: “He’s building a new kind of empire—one where corporations are the rulers, not nations. Starlink, SpaceX, X… these are the tools of a future dystopia.”" },
+      { icon: '🪞', text: "Tech Bro Narcissus: “It’s not about saving humanity; it’s about his ego. Musk’s real mission is to stay in the spotlight, no matter the cost.”" },
+      { icon: '📉', text: "Doomsday Catalyst: “By concentrating this much power, Musk is accelerating the collapse of nation states and ushering in a world where corporate overlords rule unchecked.”" },
+      { icon: '🤡', text: "Cosmic Jester: “He’s just playing with humanity. The Twitter/X debacle, the Dogecoin stunts—none of this is serious. Musk is trolling the world.”" },
+      { icon: '👹', text: "Literal Antichrist: “He’s not just problematic; he’s existentially dangerous. The concentration of power, the unchecked ambition, the AI experiments—Musk is the harbinger of humanity’s doom.”" }
+    ];
+
+    slider.addEventListener('input', () => {
+      const value = parseInt(slider.value, 10) - 1;
+      const selection = data[value];
+      result.classList.remove('hidden');
+      icon.innerHTML = selection.icon;
+      description.innerText = selection.text;
+    });
+  </script>
+</body>
+</html>
