@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -26,7 +25,7 @@
       width: 100%;
       margin: 20px 0;
     }
-    .result, .confirmation {
+    .result {
       margin-top: 20px;
       font-size: 18px;
       color: #333;
@@ -35,49 +34,10 @@
       background-color: white;
       box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
     }
-    .popup {
-      margin-top: 20px;
-      padding: 10px;
-      background: #25d9b7;
-      color: white;
-      border-radius: 5px;
-      display: none;
-      font-size: 14px;
-    }
     footer {
       margin-top: 40px;
       font-size: 14px;
       color: #666;
-    }
-    .icon {
-      margin-top: 10px;
-      font-size: 50px;
-    }
-    button {
-      margin: 10px;
-      padding: 10px 20px;
-      font-size: 16px;
-      background-color: #25d9b7;
-      color: white;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-    }
-    button:hover {
-      background-color: #1bb89a;
-    }
-    .share-buttons {
-      margin-top: 20px;
-    }
-    .share-buttons button {
-      display: inline-block;
-      margin: 5px;
-      padding: 10px 15px;
-      font-size: 14px;
-    }
-    .header-image {
-      max-width: 100%;
-      height: auto;
     }
   </style>
 </head>
@@ -87,13 +47,9 @@
   <p>How do you feel about Musk?</p>
   <div class="slider-container">
     <input type="range" id="slider" min="1" max="10" value="5" step="1">
-    <div class="result hidden" id="result">
-      <div id="icon" class="icon">🤔</div>
-      <p id="description"></p>
-    </div>
+    <div id="description" class="result">Move the slider to see your choice!</div>
     <button id="submit-btn">Submit</button>
     <div id="vote-count">Number of Votes: 0</div>
-    <div class="popup" id="popup">Now share your result!</div>
     <p>Community Average:</p>
     <input type="range" id="cumulative-slider" min="1" max="10" value="5" step="1" disabled>
   </div>
@@ -102,8 +58,31 @@
     Just kidding! Made by Dave Foulkes from <a href="https://beyondsurvival.substack.com" target="_blank">Beyond Survival</a>
   </footer>
   <script>
-    const BIN_URL = "https://api.jsonbin.io/v3/b/YOUR_BIN_ID"; // const BIN_URL = "https://api.jsonbin.io/v3/b/YOUR_BIN_ID";
-    const API_KEY = "YOUR_API_KEY"; // const API_KEY = "YOUR_API_KEY";
+    const BIN_URL = "https://api.jsonbin.io/v3/b/YOUR_BIN_ID"; // Replace with your Bin URL
+    const API_KEY = "YOUR_API_KEY"; // Replace with your API Key
+
+    // Choice descriptions
+    const choices = [
+      "Saint Elon, Savior of Humanity: 'Musk is a visionary genius!'",
+      "Benevolent Disruptor: 'Bold leaders are essential for innovation!'",
+      "Flawed Genius: 'Brilliant but chaotic leadership...'",
+      "Chaotic Neutral Tech Lord: 'Impressive tech, but a mixed bag!'",
+      "Accidental Supervillain: 'This much power is risky.'",
+      "Corporate Colonizer: 'A dystopian empire is forming.'",
+      "Tech Bro Narcissus: 'All about ego and spotlight.'",
+      "Doomsday Catalyst: 'Accelerating societal collapse.'",
+      "Cosmic Jester: 'Trolling the world for fun.'",
+      "Literal Antichrist: 'Existentially dangerous ambition.'"
+    ];
+
+    // Update the description dynamically based on slider value
+    const slider = document.getElementById("slider");
+    const description = document.getElementById("description");
+
+    slider.addEventListener("input", () => {
+      const value = parseInt(slider.value, 10) - 1;
+      description.textContent = choices[value];
+    });
 
     // Fetch current data from JSONBin
     async function fetchData() {
@@ -120,8 +99,8 @@
         const totalScore = data.record.totalScore;
         const average = Math.round(totalScore / totalVotes) || 0;
 
-        document.getElementById('vote-count').textContent = `Number of Votes: ${totalVotes}`;
-        document.getElementById('cumulative-slider').value = average;
+        document.getElementById("vote-count").textContent = `Number of Votes: ${totalVotes}`;
+        document.getElementById("cumulative-slider").value = average;
       } catch (error) {
         console.error("Error fetching data:", error);
       }
@@ -162,8 +141,8 @@
     fetchData();
 
     // Add event listener for the Submit button
-    document.getElementById('submit-btn').addEventListener('click', () => {
-      const vote = parseInt(document.getElementById('slider').value, 10);
+    document.getElementById("submit-btn").addEventListener("click", () => {
+      const vote = parseInt(slider.value, 10);
       updateData(vote);
     });
   </script>
