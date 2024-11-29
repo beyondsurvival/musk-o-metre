@@ -218,22 +218,16 @@
       }
     }
 
-   document.getElementById("submit-btn").addEventListener("click", () => {
-  // Check if the user has already voted
-  if (localStorage.getItem("hasVoted")) {
-    alert("You have already voted! Clear your browser cache to vote again.");
-    return;
-  }
-
-  const vote = parseInt(slider.value, 10);
-  updateData(vote);
-
-  // Set a flag in localStorage to prevent multiple votes
-  localStorage.setItem("hasVoted", true);
-});
+    document.getElementById("submit-btn").addEventListener("click", () => {
+      if (localStorage.getItem("hasVoted")) {
+        alert("You have already voted! Clear your browser cache to vote again.");
+        return;
+      }
 
       const vote = parseInt(slider.value, 10);
       updateData(vote);
+
+      localStorage.setItem("hasVoted", true);
     });
 
     fetchData();
