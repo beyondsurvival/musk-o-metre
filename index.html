@@ -27,7 +27,7 @@
       width: 90%;
       max-width: 600px;
     }
-    #slider {
+    #slider, #cumulative-slider {
       width: 100%;
       -webkit-appearance: none;
       appearance: none;
@@ -37,7 +37,7 @@
       outline: none;
       margin-bottom: 10px;
     }
-    #slider::-webkit-slider-thumb {
+    #slider::-webkit-slider-thumb, #cumulative-slider::-webkit-slider-thumb {
       -webkit-appearance: none;
       appearance: none;
       width: 20px;
@@ -47,19 +47,6 @@
       border-radius: 50%;
       cursor: pointer;
     }
-    #slider::-moz-range-thumb {
-      width: 20px;
-      height: 20px;
-      background: white;
-      border: 2px solid black;
-      border-radius: 50%;
-      cursor: pointer;
-    }
-    .slider-labels {
-      display: flex;
-      justify-content: space-between;
-      font-size: 14px;
-    }
     .result {
       margin-top: 20px;
       font-size: 18px;
@@ -68,6 +55,20 @@
       border-radius: 5px;
       background-color: white;
       box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    }
+    .popup {
+      margin-top: 10px;
+      padding: 10px;
+      font-size: 16px;
+      color: white;
+      background-color: #25d9b7;
+      border-radius: 5px;
+      display: none;
+    }
+    .slider-labels {
+      display: flex;
+      justify-content: space-between;
+      font-size: 14px;
     }
     footer {
       margin-top: 40px;
@@ -213,16 +214,3 @@
           popup.style.display = "none";
         }, 3000);
       } catch (error) {
-        console.error("Error updating data:", error);
-      }
-    }
-
-    function shareResult(platform) {
-      const url = encodeURIComponent("https://beyondsurvival.github.io/musk-o-metre/");
-      const selectedValue = slider.value;
-      const result = choices[selectedValue - 1];
-      const text = encodeURIComponent(`I got "${result}". Find out where you stand on the Musk-o-Metre!`);
-
-      let shareUrl = "";
-      if (platform === "twitter") {
-        shareUrl = `https://twitter.com/intent/tweet?
