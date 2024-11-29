@@ -1,0 +1,149 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Musk-o-Metre™</title>
+
+  <!-- Open Graph Meta Tags -->
+  <meta property="og:title" content="Where Are You on the Musk-o-Metre?">
+  <meta property="og:description" content="Take the Musk-o-Metre quiz and find out where you stand on Elon Musk!">
+  <meta property="og:image" content="https://beyondsurvival.github.io/musk-o-metre/musk-o-metre-share.png">
+  <meta property="og:url" content="https://beyondsurvival.github.io/musk-o-metre/">
+  <meta property="og:type" content="website">
+
+  <!-- Twitter Meta Tags -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Where Are You on the Musk-o-Metre?">
+  <meta name="twitter:description" content="Take the Musk-o-Metre quiz and find out where you stand on Elon Musk!">
+  <meta name="twitter:image" content="https://beyondsurvival.github.io/musk-o-metre/musk-o-metre-share.png">
+
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: black;
+      color: white;
+      text-align: center;
+    }
+    .meter-container {
+      position: relative;
+      width: 300px;
+      height: 150px;
+      margin: 50px auto;
+      background: radial-gradient(circle at center, #7d00ff, #4c00a4);
+      border-radius: 300px 300px 0 0;
+      overflow: hidden;
+    }
+    .meter-needle {
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      width: 4px;
+      height: 100px;
+      background: white;
+      transform-origin: bottom;
+      transform: rotate(0deg);
+      transition: transform 0.3s ease-out;
+    }
+    .meter-label {
+      position: absolute;
+      width: 100%;
+      text-align: center;
+      bottom: -20px;
+      font-size: 18px;
+    }
+    .emoji {
+      position: absolute;
+      font-size: 30px;
+    }
+    .emoji.left {
+      left: 10px;
+      bottom: 30px;
+    }
+    .emoji.right {
+      right: 10px;
+      bottom: 30px;
+    }
+    #slider {
+      width: 80%;
+      margin: 30px auto;
+    }
+    button {
+      margin-top: 20px;
+      padding: 10px 20px;
+      font-size: 16px;
+      background-color: #25d9b7;
+      color: black;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #1bb89a;
+    }
+    footer {
+      margin-top: 30px;
+      font-size: 14px;
+    }
+    .beyond-survival-btn {
+      color: #ac05f2;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    .beyond-survival-btn:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <h1>The Musk-o-Metre™</h1>
+  <div class="meter-container">
+    <div id="needle" class="meter-needle"></div>
+    <div class="meter-label" id="meter-label">How do you feel about Musk?</div>
+    <div class="emoji left">😇</div>
+    <div class="emoji right">👹</div>
+  </div>
+  <input type="range" id="slider" min="1" max="10" value="5" step="1">
+  <button id="submit-btn">Submit</button>
+  <footer>
+    From Russia with ❤️<br>
+    Just kidding! Made by Dave Foulkes from <a class="beyond-survival-btn" href="https://beyondsurvival.substack.com" target="_blank">Beyond Survival</a>
+  </footer>
+
+  <script>
+    const slider = document.getElementById('slider');
+    const needle = document.getElementById('needle');
+    const meterLabel = document.getElementById('meter-label');
+    const submitBtn = document.getElementById('submit-btn');
+
+    const labels = [
+      "Saint Elon, Savior of Humanity",
+      "Benevolent Disruptor",
+      "Flawed Genius",
+      "Chaotic Neutral Tech Lord",
+      "Accidental Supervillain",
+      "Corporate Colonizer",
+      "Tech Bro Narcissus",
+      "Doomsday Catalyst",
+      "Cosmic Jester",
+      "Literal Antichrist"
+    ];
+
+    // Rotate needle and update label dynamically
+    slider.addEventListener('input', () => {
+      const value = parseInt(slider.value, 10);
+      const angle = -90 + (value - 1) * 20;
+      needle.style.transform = `rotate(${angle}deg)`;
+      meterLabel.innerText = labels[value - 1];
+    });
+
+    // Submit functionality
+    submitBtn.addEventListener('click', () => {
+      alert(`You feel: "${meterLabel.innerText}" about Musk!`);
+    });
+  </script>
+</body>
+</html>
